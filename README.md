@@ -123,7 +123,19 @@ Código original comentado;
 
 <img width="864" height="152" alt="image" src="Fluxo Grafo.png" />
 
+COMPLEXIDADE CICLOMÁTICA; Cálculo
+Nós = 15
+Arestas = 18
 
+
+V(G) = Arestas – Nós + 2
+18-15+2 > V(G) = 5
+
+Calcular decisões no3,no8,no12;
+V(G) = 3 + 1
+Decisões = 4
+
+Planilha em anexo.
 Soluçoes para esses erros, vão ser aplicados em um novo código reestruturado, junto com o fluxo de grafo adaptado para o novo código.
 Adicionada documentação → comentários JavaDoc explicando cada método.
 Variáveis renomeadas → conn → connection, st → preparedStatement, rs → resultSet.
