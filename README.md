@@ -10,23 +10,22 @@ A documentação segue os padrões da disciplina de UX/UI – Testes Funcionais
 caminhos básicos e análise estrutural.
 
 
-public Connection conectarBD() {
+    public Connection conectarBD() {
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
         return DriverManager.getConnection(url, user, pass);
     } catch (Exception e){
         return null;
     }
-}
+    }
 
-public boolean verificarUsuario(String usuario, String senha) {
+    public boolean verificarUsuario(String usuario, String senha) {
     Connection conn = conectarBD();
     try {
         String sql = "SELECT * FROM usuarios WHERE usuario = '" + usuario + "' AND senha = '" + senha + "'";
         Statement st = conn.createStatement();
         ResultSet rs = st.executeQuery(sql);
-        
-        if (rs.next()) {
+          if (rs.next()) {
             nome = rs.getString("nome");
             return true;
         }
@@ -34,4 +33,6 @@ public boolean verificarUsuario(String usuario, String senha) {
         return false;
     }
     return false;
-}
+    }
+
+    
