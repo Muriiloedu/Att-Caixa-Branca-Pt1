@@ -127,15 +127,4 @@ Fechamento automático de recursos → Connection, PreparedStatement e ResultSet
     
             return false;
         }
-    
-        public static void main(String[] args) {
-            
-            User user = new User();
-            boolean isValid = user.verificarUsuario(System.getenv("Lopes"), System.getenv("123"));
-            if (isValid) {
-                System.out.println("Usuário autenticado: " + user.getNome());
-            } else {
-                System.out.println("Usuário ou senha inválidos.");
-            }
-        }
     }
