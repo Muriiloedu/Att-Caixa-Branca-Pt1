@@ -117,8 +117,6 @@ Código original comentado;
             } catch (Exception e) {
                 // Nó 16: captura exceção sem tratamento
             }
-    
-            // Nó 17: retorna false caso não encontre ou erro
             return false;
         }
     }
