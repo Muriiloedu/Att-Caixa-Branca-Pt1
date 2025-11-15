@@ -91,8 +91,8 @@ Fechamento automático de recursos → Connection, PreparedStatement e ResultSet
          */
         public static Connection conectarBD() throws SQLException {
             String url = "jdbc:mysql://127.0.0.1/test";
-            String user = System.getenv("DB_USER");      // Usuário do BD
-            String password = System.getenv("DB_PASS");  // Senha do BD
+            String user = System.getenv("Lopes");      // Usuário do BD
+            String password = System.getenv("123");  // Senha do BD
     
             // Driver moderno, sem newInstance()
             return DriverManager.getConnection(url, user, password);
@@ -127,6 +127,15 @@ Fechamento automático de recursos → Connection, PreparedStatement e ResultSet
     
             return false;
         }
-    }
-
     
+        public static void main(String[] args) {
+            
+            User user = new User();
+            boolean isValid = user.verificarUsuario(System.getenv("Lopes"), System.getenv("123"));
+            if (isValid) {
+                System.out.println("Usuário autenticado: " + user.getNome());
+            } else {
+                System.out.println("Usuário ou senha inválidos.");
+            }
+        }
+    }
