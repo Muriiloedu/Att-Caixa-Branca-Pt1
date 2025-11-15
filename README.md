@@ -47,7 +47,8 @@ Código para revisar disponibilizado pelo professor abaixo;
         return false; }
     }
 
-    <img width="864" height="152" alt="image" src="IMG-Erro-Caixa Branca.png" />
+
+<img width="864" height="152" alt="image" src="IMG-Erro-Caixa Branca.png" />
 
 
 
