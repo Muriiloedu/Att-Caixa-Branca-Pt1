@@ -127,17 +127,6 @@ Fechamento automático de recursos → Connection, PreparedStatement e ResultSet
     
             return false;
         }
-    
-        // Método de teste rápido
-        public static void main(String[] args) {
-            User user = new User();
-    
-            if (user.verificarUsuario("admin", "123")) {
-                System.out.println("Login bem-sucedido! Nome: " + user.getNome());
-            } else {
-                System.out.println("Login falhou!");
-            }
-        }
     }
 
     
