@@ -75,13 +75,13 @@ Fechamento automático de recursos → Connection, PreparedStatement e ResultSet
      */
     public class User {
     
-        private String nome = "";
+        private String nome = ""; // NÓ 1 - início / atributo do usuário
     
         /**
          * Retorna o nome do usuário autenticado.
          */
-        public String getNome() {
-            return nome;
+        public String getNome() { // NÓ 2
+            return nome; // NÓ 2
         }
     
         /**
@@ -89,13 +89,13 @@ Fechamento automático de recursos → Connection, PreparedStatement e ResultSet
          * @return Connection
          * @throws SQLException caso a conexão falhe
          */
-        public static Connection conectarBD() throws SQLException {
-            String url = "jdbc:mysql://127.0.0.1/test";
-            String user = System.getenv("Lopes");      // Usuário do BD
-            String password = System.getenv("123");  // Senha do BD
+        public static Connection conectarBD() throws SQLException { // NÓ 3
+            String url = "jdbc:mysql://127.0.0.1/test"; // NÓ 4
+            String user = System.getenv("Lopes");      // NÓ 5 - usuário
+            String password = System.getenv("123");    // NÓ 6 - senha
     
-            // Driver moderno, sem newInstance()
-            return DriverManager.getConnection(url, user, password);
+            // Driver moderno, sem newInstance() // NÓ 7
+            return DriverManager.getConnection(url, user, password); // NÓ 8
         }
     
         /**
@@ -104,27 +104,32 @@ Fechamento automático de recursos → Connection, PreparedStatement e ResultSet
          * @param senha Senha
          * @return true se usuário existe, false caso contrário
          */
-        public boolean verificarUsuario(String login, String senha) {
-            String sql = "SELECT nome FROM usuarios WHERE login = ? AND senha = ?";
+        public boolean verificarUsuario(String login, String senha) { // NÓ 9 - início do método
+            String sql = "SELECT nome FROM usuarios WHERE login = ? AND senha = ?"; // NÓ 10 - preparação da query
     
-            try (Connection connection = conectarBD();       // try-with-resources fecha automaticamente
+            // NÓ 11 - tentativa de conexão e PreparedStatement
+            try (Connection connection = conectarBD();
                  PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
     
-                // Definindo parâmetros da query
+                // NÓ 12 - definir parâmetros da query
                 preparedStatement.setString(1, login);
                 preparedStatement.setString(2, senha);
     
+                // NÓ 13 - executar query
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    // NÓ 14 - decisão: usuário encontrado?
                     if (resultSet.next()) {
-                        nome = resultSet.getString("nome");  // atribuição antes do return
-                        return true;
+                        nome = resultSet.getString("nome"); // NÓ 14a - atribuição do nome
+                        return true;                        // NÓ 14b - retorno true
                     }
+                    // NÓ 14c - usuário não encontrado
+                    return false; // return false caso rs.next() seja false
                 }
     
-            } catch (SQLException e) {
-                System.err.println("Erro ao verificar usuário: " + e.getMessage());
+            } catch (SQLException e) { // NÓ 15 - captura de exceção
+                System.err.println("Erro ao verificar usuário: " + e.getMessage()); // NÓ 15a
+                return false; // NÓ 15b - retorno em caso de erro
             }
-    
-            return false;
-        }
-    }
+        } // NÓ 16 - fim do método verificarUsuario
+    } // NÓ 17 - fim da classe
+
