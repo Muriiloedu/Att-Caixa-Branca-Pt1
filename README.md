@@ -123,6 +123,7 @@ Código original comentado;
         }
     }
 
+<img width="864" height="152" alt="image" src="Fluxo Grafo.png" />
 
 
 Soluçoes para esses erros, vão ser aplicados em um novo código reestruturado, junto com o fluxo de grafo adaptado para o novo código.
