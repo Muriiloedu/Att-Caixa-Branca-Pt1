@@ -50,6 +50,94 @@ Código para revisar disponibilizado pelo professor abaixo;
 
 <img width="864" height="152" alt="image" src="IMG-Erro-Caixa Branca.png" />
 
+Erros detectados: Código sem documentação → métodos conectarBD e verificarUsuario não tinham comentários explicando a função.
+Nomes de variáveis pouco claros → st, rs e conn são genéricos.
+Legibilidade e organização → try-catch sem tratamento e blocos grandes dificultam a leitura.
+NullPointer não tratado → conn.createStatement() poderia falhar se conn for null.
+Recursos não fechados → Connection, Statement e ResultSet não eram fechados, podendo travar o banco.
 
+
+Soluçoes para esses erros, vão ser aplicados em um novo código reestruturado, junto com o fluxo de grafo adaptado para o novo código.
+Adicionada documentação → comentários JavaDoc explicando cada método.
+Variáveis renomeadas → conn → connection, st → preparedStatement, rs → resultSet.
+Melhor legibilidade → try-with-resources e tratamento de exceções claro.
+Tratamento de NullPointer → try-with-resources garante que a conexão foi aberta; mensagem de erro se falhar.
+Fechamento automático de recursos → Connection, PreparedStatement e ResultSet fecham automaticamente.
+
+    import java.sql.Connection;
+    import java.sql.DriverManager;
+    import java.sql.PreparedStatement;
+    import java.sql.ResultSet;
+    import java.sql.SQLException;
+    
+    /**
+     * Classe User para autenticação no banco de dados.
+     */
+    public class User {
+    
+        private String nome = "";
+    
+        /**
+         * Retorna o nome do usuário autenticado.
+         */
+        public String getNome() {
+            return nome;
+        }
+    
+        /**
+         * Conecta ao banco de dados MySQL.
+         * @return Connection
+         * @throws SQLException caso a conexão falhe
+         */
+        public static Connection conectarBD() throws SQLException {
+            String url = "jdbc:mysql://127.0.0.1/test";
+            String user = System.getenv("DB_USER");      // Usuário do BD
+            String password = System.getenv("DB_PASS");  // Senha do BD
+    
+            // Driver moderno, sem newInstance()
+            return DriverManager.getConnection(url, user, password);
+        }
+    
+        /**
+         * Verifica se o usuário e senha existem no banco de dados.
+         * @param login Usuário
+         * @param senha Senha
+         * @return true se usuário existe, false caso contrário
+         */
+        public boolean verificarUsuario(String login, String senha) {
+            String sql = "SELECT nome FROM usuarios WHERE login = ? AND senha = ?";
+    
+            try (Connection connection = conectarBD();       // try-with-resources fecha automaticamente
+                 PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+    
+                // Definindo parâmetros da query
+                preparedStatement.setString(1, login);
+                preparedStatement.setString(2, senha);
+    
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    if (resultSet.next()) {
+                        nome = resultSet.getString("nome");  // atribuição antes do return
+                        return true;
+                    }
+                }
+    
+            } catch (SQLException e) {
+                System.err.println("Erro ao verificar usuário: " + e.getMessage());
+            }
+    
+            return false;
+        }
+    
+        // Método de teste rápido
+        public static void main(String[] args) {
+            User user = new User();
+    
+            if (user.verificarUsuario("admin", "123")) {
+                System.out.println("Login bem-sucedido! Nome: " + user.getNome());
+            } else {
+                System.out.println("Login falhou!");
+            }
+        }
+    }
 
     
