@@ -47,7 +47,7 @@ Código para revisar disponibilizado pelo professor abaixo;
         return false; }
     }
 
-    <img width="864" height="152" alt="image" src="https://github.com/user-attachments/assets/9daa0a7f-9382-4cac-8fa9-22892e39dcfa" />
+    <img width="864" height="152" alt="image" src="IMG-Erro-Caixa Branca.png" />
 
 
 
