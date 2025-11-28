@@ -1,5 +1,5 @@
 # Att-Caixa-Branca-Pt1
-Deixo um README.MD da atividade deixada por Daniel Ohata
+Deixo um README.MD da atividade
 
 Este repositório contém a análise completa de **teste de caixa branca** aplicada
 com codigo em Java, com responsabilidades de conexão com o banco de dados e 
